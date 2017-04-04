@@ -1,18 +1,35 @@
 class Game
 
   def score(scores)
-    frame = 0
-    strike = 10
-    spare = 10
-    prev_rolls = [0, 0]
+    newframe = true
+    rolls = []
     total = 0
     scores.each do |roll|
       total += roll
-      prev_rolls[1] = prev_rolls[0]
-      prev_rolls[0] = roll
+      if (rolls[-2] == :strike)
+        total += roll
+      end
+      if ((rolls[-1] == :spare) || (rolls[-1] == :strike))
+        total += roll
+      end
+      if newframe
+        if (roll == 10)
+          rolls << :strike
+        else
+          rolls << roll
+          newframe = false
+        end
+      else
+        if (roll + rolls[-1] == 10)
+          rolls << :spare
+        else
+          rolls << roll
+        end
+        newframe = true
+      end
     end
     total
   end
 
-  
+
 end
