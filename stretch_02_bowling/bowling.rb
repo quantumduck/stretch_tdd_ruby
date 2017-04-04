@@ -1,6 +1,7 @@
 class Game
 
   def score(scores)
+    frame = 1
     newframe = true
     rolls = []
     total = 0
@@ -14,22 +15,31 @@ class Game
       end
       if newframe
         if (roll == 10)
-          rolls << :strike
+          if (frame <= 9)
+            rolls << :strike
+          else
+            rolls << roll
+          end
+          frame += 1
         else
           rolls << roll
           newframe = false
         end
       else
         if (roll + rolls[-1] == 10)
-          rolls << :spare
+          if (frame <= 9)
+            rolls << :spare
+          else
+            rolls << roll
+          end
         else
           rolls << roll
         end
         newframe = true
+        frame += 1
       end
     end
     total
   end
-
 
 end
