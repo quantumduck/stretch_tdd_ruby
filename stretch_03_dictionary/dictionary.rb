@@ -1,10 +1,10 @@
 class Dictionary < Hash
 
   def add(term)
-    case term.class
-    when String
+    case term.class.to_s
+    when 'String'
       store(term, nil)
-    when Hash
+    when 'Hash'
       self[term.keys.first] = term.values.first
     end
   end
@@ -18,7 +18,7 @@ class Dictionary < Hash
   end
 
   def keywords
-    keys
+    keys.sort
   end
 
   def find(term)
